@@ -1,4 +1,5 @@
 name: audio_video_progress_bar
+publish_to: none
 description: A progress bar widget to show or change the position of an audio or
   video stream.
 version: 0.9.0
