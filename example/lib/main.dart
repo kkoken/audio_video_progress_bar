@@ -29,8 +29,7 @@ class MyApp extends StatelessWidget {
       valueListenable: themeNotifier,
       builder: (context, value, child) {
         return MaterialApp(
-          theme: ThemeData(
-              primarySwatch: value.color, brightness: value.brightness),
+          theme: ThemeData(primarySwatch: value.color, brightness: value.brightness),
           home: const HomeWidget(),
         );
       },
@@ -155,15 +154,13 @@ class _HomeWidgetState extends State<HomeWidget> {
       OutlinedButton(
         child: const Text('light'),
         onPressed: () {
-          themeNotifier.value =
-              const ThemeVariation(Colors.blue, Brightness.light);
+          themeNotifier.value = const ThemeVariation(Colors.blue, Brightness.light);
         },
       ),
       OutlinedButton(
         child: const Text('dark'),
         onPressed: () {
-          themeNotifier.value =
-              const ThemeVariation(Colors.blue, Brightness.dark);
+          themeNotifier.value = const ThemeVariation(Colors.blue, Brightness.dark);
         },
       ),
     ]);
@@ -188,9 +185,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   BoxDecoration _widgetBorder() {
     return BoxDecoration(
-      border: _isShowingWidgetOutline
-          ? Border.all(color: Colors.red)
-          : Border.all(color: Colors.transparent),
+      border: _isShowingWidgetOutline ? Border.all(color: Colors.red) : Border.all(color: Colors.transparent),
     );
   }
 
@@ -252,15 +247,13 @@ class _HomeWidgetState extends State<HomeWidget> {
       OutlinedButton(
         child: const Text('large'),
         onPressed: () {
-          setState(
-              () => _labelStyle = TextStyle(fontSize: 40, color: fontColor));
+          setState(() => _labelStyle = TextStyle(fontSize: 40, color: fontColor));
         },
       ),
       OutlinedButton(
         child: const Text('small'),
         onPressed: () {
-          setState(
-              () => _labelStyle = TextStyle(fontSize: 8, color: fontColor));
+          setState(() => _labelStyle = TextStyle(fontSize: 8, color: fontColor));
         },
       ),
     ]);
@@ -398,6 +391,9 @@ class _HomeWidgetState extends State<HomeWidget> {
     ]);
   }
 
+  // Exposable barWidth
+  late double barWidth;
+
   StreamBuilder<DurationState> _progressBar() {
     return StreamBuilder<DurationState>(
       stream: _durationState,
@@ -407,29 +403,29 @@ class _HomeWidgetState extends State<HomeWidget> {
         final buffered = durationState?.buffered ?? Duration.zero;
         final total = durationState?.total ?? Duration.zero;
         return ProgressBar(
-          progress: progress,
-          buffered: buffered,
-          total: total,
-          onSeek: (duration) {
-            _player.seek(duration);
-          },
-          onDragUpdate: (details) {
-            debugPrint('${details.timeStamp}, ${details.localPosition}');
-          },
-          barHeight: _barHeight,
-          baseBarColor: _baseBarColor,
-          progressBarColor: _progressBarColor,
-          bufferedBarColor: _bufferedBarColor,
-          thumbColor: _thumbColor,
-          thumbGlowColor: _thumbGlowColor,
-          barCapShape: _barCapShape,
-          thumbRadius: _thumbRadius,
-          thumbCanPaintOutsideBar: _thumbCanPaintOutsideBar,
-          timeLabelLocation: _labelLocation,
-          timeLabelType: _labelType,
-          timeLabelTextStyle: _labelStyle,
-          timeLabelPadding: _labelPadding,
-        );
+            progress: progress,
+            buffered: buffered,
+            total: total,
+            onSeek: (duration) {
+              _player.seek(duration);
+            },
+            onDragUpdate: (details) {
+              debugPrint('${details.timeStamp}, ${details.localPosition}');
+            },
+            barHeight: _barHeight,
+            baseBarColor: _baseBarColor,
+            progressBarColor: _progressBarColor,
+            bufferedBarColor: _bufferedBarColor,
+            thumbColor: _thumbColor,
+            thumbGlowColor: _thumbGlowColor,
+            barCapShape: _barCapShape,
+            thumbRadius: _thumbRadius,
+            thumbCanPaintOutsideBar: _thumbCanPaintOutsideBar,
+            timeLabelLocation: _labelLocation,
+            timeLabelType: _labelType,
+            timeLabelTextStyle: _labelStyle,
+            timeLabelPadding: _labelPadding,
+            barWidth: (value) => {barWidth = value});
       },
     );
   }
@@ -441,8 +437,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         final playerState = snapshot.data;
         final processingState = playerState?.processingState;
         final playing = playerState?.playing;
-        if (processingState == ProcessingState.loading ||
-            processingState == ProcessingState.buffering) {
+        if (processingState == ProcessingState.loading || processingState == ProcessingState.buffering) {
           return Container(
             margin: const EdgeInsets.all(8.0),
             width: 32.0,
